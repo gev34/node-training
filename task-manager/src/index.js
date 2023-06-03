@@ -3,80 +3,48 @@ require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 const app = express()
+//express middlware
+// app.use((req,res,next) => {
+//     /*minchev nextchkanchenq chi sharunakvi*/
+//     res.send("site is currently down. Check back soon!")
+// })
 //automat jsony sarquma object
 app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
 
+// const multer = require('multer')
+// const upload = multer({
+//     dest:'images',
+//     limits:{
+//         fileSize:1000000//1mb
+//     },
+//     fileFilter(req,file,cb){
+//         if(!file.originalname.endsWith('.pdf')){
+//             return cb(new Error('Please upload a pdf file'))
+//         }
+//         cb(undefined,true)
+//     }
+// })
+// app.post('/upload',upload.single('upload'),(req,res) => {
+//     res.send()
+// })
 
-// app.get('/users' , async(req,res) => {
-//     try{
-//         const users = await(User.find({}))
-//         res.send(users)
-//     }catch(e){
-//         res.status(500).send()
-//     }
-// })
-// app.get('/users/:id',async(req,res) => {
-//     const _id = req.params.id
-//     try{
-//         const user = await User.findById(_id)
-//         if(!user){
-//             return res.status(400).send()
-//         }
-//         res.send(user)
-//     }catch(e){
-//         res.status(500).send()
-//     }
-// })
-// app.post('/users',async(req,res) => {
-//     try{
-//         const user = await new User(req.body)
-//         res.send(user)
-//     }catch(e){
-//         res.status(500).send()
-//     }
-// })
-// app.post('/tasks',async(req,res) => {
-//     try{
-//         const task = await new Task(req.body)
-//         res.send(task)
-//     }catch(e){
-//         res.status(500).send()
-//     }
-// })
-// app.patch('/users/:id',async(req,res) => {
-//     const updates = Object.keys(req.body)
-//     const allowedUpdates = ["name","password","email","age"]
-//     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
-//     if(!isValidOperation) {
-//         //stugum enq vor valid keya uzum tarmacni
-//         return res.status(400).send({error:'Invalid Updates'})
-//     }
-//     try{
-//         //runValidatorsy stuguma normal banov enq uzum eghacogh anenq te che
-//         const user = await User.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
-//         if(!user){
-//            return res.status(400).send()
-//         }
-//         res.send(user)
-//     }catch(e){
-//         res.status(404).send()
-//     }
-// })
-// app.delete('/users/:id',async (req,res) => {
-//     try{
-//         const user = await User.findByIdAndDelete(req.params.id)
-//         if(!user){
-//            return res.status(400).send()
-//         }
-//         res.send(user)
-//     }catch(e){
-//         res.status(500).send()
-//     }
-// })
+
 app.listen(port,() => {
     console.log("server is up on port" , port)
 })
+// const Task = require('./models/task')
+// const User = require('./models/user')
+// const main = async() => {
+    // const task =await Task.findById('6479f0491d8d5cfc5433cf2b')
+    //gtnuma et taski owneri objecty Task modelin ref taluc heto
+    // await task.populate('owner').execPopulate()
+    // console.log(task.owner)
+    // const user = await User.findById('6479cd13dd65e5bf12d38cd9')
+    // await user.populate('tasks').execPopulate()
+    // console.log(user.tasks)
+// }
+// main()
